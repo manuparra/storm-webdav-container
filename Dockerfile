@@ -44,8 +44,8 @@ RUN yum install -y puppet
 RUN mkdir /software/
 WORKDIR /software/
 
-RUN export PATH=${PATH}:/opt/puppetlabs/bin &&   puppet module install puppetlabs-stdlib --version 8.6.0
-RUN export PATH=${PATH}:/opt/puppetlabs/bin &&   puppet module install puppetlabs-firewall --version 5.0.0
+RUN export PATH=${PATH}:/opt/puppetlabs/bin &&   puppet module install puppetlabs-stdlib --version 8.2.0
+RUN export PATH=${PATH}:/opt/puppetlabs/bin &&   puppet module install puppetlabs-firewall --version 3.5.0
 RUN export PATH=${PATH}:/opt/puppetlabs/bin &&   puppet module install puppetlabs-accounts --version 7.2.0
 RUN export PATH=${PATH}:/opt/puppetlabs/bin &&   puppet module install puppetlabs-mysql --version 12.0.3
 # RUN wget https://forge.puppet.com/v3/files/puppet-epel-4.1.0.tar.gz
@@ -88,7 +88,8 @@ RUN head /etc/puppetlabs/code/environments/production/modules/storm/CHANGELOG.md
 RUN head /etc/puppetlabs/code/environments/production/modules/lcmaps/CHANGELOG.md
 RUN head /etc/puppetlabs/code/environments/production/modules/ntp/CHANGELOG.md
 RUN export PATH="${PATH}:/opt/puppetlabs/bin" && puppet apply setup.pp
-#RUN export PATH=${PATH}:/opt/puppetlabs/bin && puppet apply manifest.pp
+RUN export PATH=${PATH}:/opt/puppetlabs/bin && puppet apply manifest.pp
+
 
 
 # Puerto por defecto para Storm
