@@ -5,6 +5,12 @@ FROM centos:7
 LABEL maintainer="TuNombre <tunombre@example.com>"
 
 RUN cat /etc/resolv.conf
+
+COPY hostname /etc/hostname
+RUN hostnamectl set-hostname espsrc.local
+COPY hosts /etc/hosts
+
+
 # Actualizamos el sistema e instalamos paquetes necesarios
 RUN yum -y update && \
     yum -y install wget ntp htop && \
@@ -87,6 +93,11 @@ RUN head /etc/puppetlabs/code/environments/production/modules/bdii/CHANGELOG.md
 RUN head /etc/puppetlabs/code/environments/production/modules/storm/CHANGELOG.md
 RUN head /etc/puppetlabs/code/environments/production/modules/lcmaps/CHANGELOG.md
 RUN head /etc/puppetlabs/code/environments/production/modules/ntp/CHANGELOG.md
+RUN echo "**************"
+RUN cat /etc/puppetlabs/code/environments/production/modules/mysql/lib/facter/mysql_server_id.rb
+RUN echo "*************"
+COPY mysql_server_id.rb /etc/puppetlabs/code/environments/production/modules/mysql/lib/facter/mysql_server_id.rb
+RUN export PATH="${PATH}:/opt/puppetlabs/bin" && puppet help
 RUN export PATH="${PATH}:/opt/puppetlabs/bin" && puppet apply setup.pp
 RUN export PATH=${PATH}:/opt/puppetlabs/bin && puppet apply manifest.pp
 

@@ -21,9 +21,22 @@ storm::sarootdir { $storage_area_root_directories: }
 
 # install all StoRM repositories and enable only stable repo
 # install also UMD4 repo and EPEL
+
+#service { 'ntp':
+#  ensure  => 'running',
+#  enable  => true,
+#}
+
+#service { 'fetch-crl-cron':
+#  ensure => 'running',
+#  enable => true,
+#}	
+
+
 class { 'storm::repo':
   enabled      => ['stable'],
 }
+
 
 # This class installs LCMAPS and LCAS and configure them with some default files stored into the module.
 # LCMAPS class is used ONLY FOR TEST PURPOSE. In production, configure LCMAPS/LCAS and pool accounts on your own with YAIM.
